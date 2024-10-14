@@ -286,10 +286,7 @@ function Edit_Course() {
                                         {Course?.Image ? (
                                             <>
                                                 <img
-                                                    src={
-                                                        "http://localhost:3000/" +
-                                                        Course?.Image
-                                                    }
+                                                    src={`http://localhost:3000/${Course?.Image}`}
                                                     alt="Profile Pic"
                                                     className=" w-[150px] h-[150px] object-cover rounded-full"
                                                 />
