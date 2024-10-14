@@ -139,7 +139,7 @@ function Courses() {
                             </thead>
                             <tbody className="text-xs text-center font-semibold ">
                                 {filteredCoursess.map((course) => (
-                                    <tr key={course.id}>
+                                    <tr key={course?.id}>
                                         <td className="border px-4 py-2">
                                             {`${course?.Title}`}
                                         </td>
@@ -165,7 +165,7 @@ function Courses() {
 
                                         <td className="border px-4 py-2">
                                             {/* {new Date(
-                                            course.createdAt
+                                            course?.createdAt
                                         ).toLocaleDateString()} */}
                                             {formatDate(course?.createdAt)}
                                         </td>
@@ -173,7 +173,7 @@ function Courses() {
                                             <button
                                                 onClick={() => {
                                                     navigate(
-                                                        `/Courses/${course.id}`
+                                                        `/Courses/${course?.id}`
                                                     );
                                                 }}
                                                 className="bg-blue-500 text-white px-4 py-2 rounded"
