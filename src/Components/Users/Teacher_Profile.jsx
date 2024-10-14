@@ -197,7 +197,7 @@ function PersonalInformations({ user }) {
             ) : null}
 
             <div className=" w-full bg-gray_white h-[1px]"> </div>
-            <div>
+            {/* <div>
                 <div className="flex flex-col gap-4 w-full  ">
                     <div className=" flex flex-row md:items-center gap-6 md:gap-10 shrink-0 text-2xl  font-semibold text-gray_v">
                         <div className=" underline">Reviews : </div>
@@ -212,7 +212,7 @@ function PersonalInformations({ user }) {
                                             )
                                         )}
                                         {user?.Rate % 1 !== 0 && <FaStarHalf />}
-                                    </div> */}
+                                    </div> 
                                     <FaStar className="text-yellow-400 " />
                                 </>
                             ) : (
@@ -221,7 +221,7 @@ function PersonalInformations({ user }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
