@@ -72,7 +72,7 @@ function Upload_Vedio() {
                 setDeleteLoading(false);
                 Navigate(`/Courses/${videoData.Course?.id}`);
             } else {
-                Swal.fire("Error", response.data.error, "error");
+                Swal.fire("Error", response.data.message, "error");
                 setDeleteLoading(false);
             }
         } catch (error) {

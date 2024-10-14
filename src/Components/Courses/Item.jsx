@@ -42,7 +42,7 @@ function Course() {
                 setDeleteLoading(false);
                 Naviagte("/Courses");
             } else {
-                Swal.fire("Error", response.data.error, "error");
+                Swal.fire("Error", response.data.message, "error");
                 setDeleteLoading(false);
             }
         } catch (error) {
