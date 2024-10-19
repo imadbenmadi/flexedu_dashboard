@@ -55,6 +55,20 @@ function PersonalInformations({ user }) {
                     </div>
                 </div>
             </div>
+            <div className=" text-lg text-red-500 font-semibold flex items-center justify-between ">
+                <div className=" flex flex-col md:flex-row md:items-center justify-center gap-2 md:gap-6">
+                    <div className=" text-xl underline font-semibold">
+                        Password :
+                    </div>
+                    <div>
+                        {user?.password ? (
+                            user?.password
+                        ) : (
+                            <div className="text-sm">none</div>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
