@@ -95,7 +95,7 @@ function Edit_Course() {
                 }
             );
             if (response.status == 200) {
-                window.location.href = `/Courses/${values.CourseId}`;
+                window.location.href = `/Teacher/Courses/${CourseId}`;
             } else if (response.status == 400) {
                 setSubmitting(false);
                 Swal.fire("Error", `${response.data.message} `, "error");
@@ -178,7 +178,7 @@ function Edit_Course() {
         return (
             <div className=" w-full h-screen   bg-white flex flex-col items-center pt-12 ">
                 <Link
-                    to={`/Courses/${CourseId}`}
+                    to={`/Teacher/Courses/${CourseId}`}
                     className=" text-green-600 pb-6 underline"
                 >
                     Go back
