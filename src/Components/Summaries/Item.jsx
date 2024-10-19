@@ -11,7 +11,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useLocation } from "react-router-dom";
 import PDFReader from "./PdfReader";
 dayjs.extend(customParseFormat);
-
+import SummaryReviewCard from "./Review/Summary_Review_Card";
 function Summary() {
     const navigate = useNavigate();
     const Navigate = useNavigate();
@@ -253,6 +253,7 @@ function Summary() {
                     )}
                 </div>
             </div>
+
             <div className="flex flex-col w-full  gap-4">
                 {loading ? (
                     <div>Loading...</div>
@@ -263,6 +264,15 @@ function Summary() {
                 ) : (
                     <div className="text-gray-500">No file</div>
                 )}
+            </div>
+            <div className=" w-full pl-6 py-10">
+                <h2 className="text-2xl font-bold text-gray-600 pl-6 mb-4">
+                    Reviews
+                </h2>
+
+                {summary?.Review_Summaries?.map((review) => (
+                    <SummaryReviewCard key={review.id} review={review} />
+                ))}
             </div>
         </div>
     );

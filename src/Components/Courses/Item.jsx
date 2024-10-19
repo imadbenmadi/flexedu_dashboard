@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useLocation } from "react-router-dom";
 dayjs.extend(customParseFormat);
-
+import CourseReviewCard from "./Review/Course_Review_Card";
 import { CiImageOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
@@ -37,6 +37,7 @@ function Course() {
                     validateStatus: () => true,
                 }
             );
+
             if (response.status == 200) {
                 Swal.fire("Success", "Course Deleted Successfully", "success");
                 setDeleteLoading(false);
@@ -62,6 +63,7 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
+                console.log(response.data);
 
                 if (response.status == 200) {
                     const Course = response.data.Course;
@@ -137,25 +139,22 @@ function Course() {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    
-                                                        <div className="text-sm text-gray_v font-semibold">
-                                                            {Course?.Price ==
-                                                            0 ? (
-                                                                <div className="text-green-600 font-semibold">
-                                                                    Free
+                                                    <div className="text-sm text-gray_v font-semibold">
+                                                        {Course?.Price == 0 ? (
+                                                            <div className="text-green-600 font-semibold">
+                                                                Free
+                                                            </div>
+                                                        ) : (
+                                                            Course?.Price && (
+                                                                <div className="text-gray_v font-semibold">
+                                                                    {
+                                                                        Course?.Price
+                                                                    }{" "}
+                                                                    DA
                                                                 </div>
-                                                            ) : (
-                                                                Course?.Price && (
-                                                                    <div className="text-gray_v font-semibold">
-                                                                        {
-                                                                            Course?.Price
-                                                                        }{" "}
-                                                                        DA
-                                                                    </div>
-                                                                )
-                                                            )}
-                                                        </div>
-                                                    
+                                                            )
+                                                        )}
+                                                    </div>
                                                 </div>
 
                                                 <div className="flex items-center justify-between w-full font-semibold">
@@ -363,6 +362,15 @@ function Course() {
                             </div>
                         </div>
                     )}
+                </div>
+                <div className=" max-w-[80vw] pl-6 py-10">
+                    <h2 className="text-2xl font-bold text-gray-600 pl-6 mb-4">
+                        Reviews
+                    </h2>
+
+                    {Course?.Reviews?.map((review) => (
+                        <CourseReviewCard key={review.id} review={review} />
+                    ))}
                 </div>
             </div>
         );
