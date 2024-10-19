@@ -14,13 +14,37 @@ dayjs.extend(customParseFormat);
 
 function Summary() {
     const navigate = useNavigate();
+    const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [summary, setSummary] = useState();
     const location = useLocation();
     const summaryId = location.pathname.split("/")[2];
     const [showDescription, setShowDescription] = useState(false);
-
+    const [delete_loading, setDeleteLoading] = useState(false);
+    const DeleteSummary = async () => {
+        setDeleteLoading(true);
+        try {
+            const response = await axios.delete(
+                `http://localhost:3000/Admin/Summaries/${summaryId}`,
+                {
+                    withCredentials: true,
+                    validateStatus: () => true,
+                }
+            );
+            if (response.status == 200) {
+                Swal.fire("Success", "Summary Deleted Successfully", "success");
+                setDeleteLoading(false);
+                Navigate("/Summaries");
+            } else {
+                Swal.fire("Error", response.data.message, "error");
+                setDeleteLoading(false);
+            }
+        } catch (error) {
+            Swal.fire("Error", error.message, "error");
+            setDeleteLoading(false);
+        }
+    };
     function toggleDescription() {
         setShowDescription(!showDescription);
     }
@@ -108,10 +132,16 @@ function Summary() {
                                 <div className="text-gray_v font-semibold">
                                     {summary?.Category}
                                 </div>
-                                {summary?.Price && (
-                                    <div className="text-gray_v font-semibold">
-                                        {summary?.Price} DA
+                                {summary?.Price == 0 ? (
+                                    <div className="text-green-600 font-semibold">
+                                        Free
                                     </div>
+                                ) : (
+                                    summary?.Price && (
+                                        <div className="text-gray_v font-semibold">
+                                            {summary?.Price} DA
+                                        </div>
+                                    )
                                 )}
                                 <div className="text-gray_v font-semibold">
                                     Created at:{" "}
@@ -200,20 +230,27 @@ function Summary() {
                 </div> */}
             </div>
             <div className=" flex gap-6">
-                <div className=" w-fit mx-auto   ">
+                {/* <div className=" w-fit mx-auto   ">
                     <Link
                         to={`/Summaries/${summary?.id}/Edit`}
                         className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
                     >
-                        {/* <IoAdd className="  font-bold text-xl" /> */}
-                        Edit
+                        Edit Summary
                     </Link>
-                </div>
-                <div className=" w-fit mx-auto   ">
-                    <div className=" flex items-center justify-center font-bold p-2 mt-6 bg-red-500 text-white cursor-pointer  rounded-lg ">
-                        {/* <IoAdd className="  font-bold text-xl" /> */}
-                        Delete
-                    </div>
+                </div> */}
+                <div>
+                    {delete_loading ? (
+                        <div className="flex justify-center ">
+                            <span className="small-loader"></span>
+                        </div>
+                    ) : (
+                        <div
+                            onClick={() => DeleteSummary()}
+                            className="flex items-center justify-center font-bold p-2 mt-6 bg-red-500 text-white cursor-pointer  rounded-lg"
+                        >
+                            Delete Summary
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="flex flex-col w-full  gap-4">

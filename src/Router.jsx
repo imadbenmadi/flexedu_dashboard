@@ -20,6 +20,7 @@ import Upload_Vedio from "./Components/Courses/Upload_Vedio.jsx";
 
 import Summaries from "./Components/Summaries/Summaries.jsx";
 import Summaries_item from "./Components/Summaries/Item.jsx";
+import Summaries_item_edit from "./Components/Summaries/Edit.jsx";
 
 import Accepted_Payments from "./Components/Payment/Accepted_Payments.jsx";
 import Rejected_Payments from "./Components/Payment/Rejected_Payments.jsx";
@@ -94,6 +95,11 @@ const routes = createBrowserRouter([
             {
                 path: "/Summaries/:id",
                 element: <Summaries_item />,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/Summaries/:id/Edit",
+                element: <Summaries_item_edit />,
                 errorElement: <ErrorElement />,
             },
 

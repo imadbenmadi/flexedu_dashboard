@@ -16,7 +16,7 @@ import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 
 function Course() {
-    const Naviagte = useNavigate();
+    const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [Course, setCourse] = useState();
@@ -40,7 +40,7 @@ function Course() {
             if (response.status == 200) {
                 Swal.fire("Success", "Course Deleted Successfully", "success");
                 setDeleteLoading(false);
-                Naviagte("/Courses");
+                Navigate("/Courses");
             } else {
                 Swal.fire("Error", response.data.message, "error");
                 setDeleteLoading(false);
@@ -68,7 +68,7 @@ function Course() {
                     setCourse(Course);
                 } else if (response.status == 401) {
                     Swal.fire("Error", "you should login again", "error");
-                    Naviagte("/Login");
+                    Navigate("/Login");
                 } else {
                     setError(response.data);
                 }
@@ -125,7 +125,7 @@ function Course() {
                                             )}
                                             <div>
                                                 <div className="flex items-center justify-between w-full">
-                                                    <div className="text-sm  mb-6 font-semibold text-white">
+                                                    <div className="text-sm  mb-2 font-semibold text-white">
                                                         <div className=" text-gray_v text-lg">
                                                             {Course?.Title}
                                                         </div>
@@ -137,12 +137,25 @@ function Course() {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    {Course?.Price ? (
+                                                    
                                                         <div className="text-sm text-gray_v font-semibold">
-                                                            {Course?.Price}
-                                                            {" DA"}
+                                                            {Course?.Price ==
+                                                            0 ? (
+                                                                <div className="text-green-600 font-semibold">
+                                                                    Free
+                                                                </div>
+                                                            ) : (
+                                                                Course?.Price && (
+                                                                    <div className="text-gray_v font-semibold">
+                                                                        {
+                                                                            Course?.Price
+                                                                        }{" "}
+                                                                        DA
+                                                                    </div>
+                                                                )
+                                                            )}
                                                         </div>
-                                                    ) : null}
+                                                    
                                                 </div>
 
                                                 <div className="flex items-center justify-between w-full font-semibold">

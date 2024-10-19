@@ -147,8 +147,17 @@ function Courses() {
                                             {course?.Category}
                                         </td>
                                         <td className="border px-4 py-2">
-                                            {course?.Price}
-                                            {" DA"}
+                                            {course?.Price == 0 ? (
+                                                <div className="text-green-600 font-semibold">
+                                                    Free
+                                                </div>
+                                            ) : (
+                                                course?.Price && (
+                                                    <div className="text-gray_v font-semibold">
+                                                        {course?.Price} DA
+                                                    </div>
+                                                )
+                                            )}
                                         </td>
                                         <td className="border px-4 py-2">
                                             {course?.Course_Videos ? (
