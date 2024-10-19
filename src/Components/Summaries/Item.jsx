@@ -9,7 +9,7 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useLocation } from "react-router-dom";
-
+import PDFReader from "./PdfReader";
 dayjs.extend(customParseFormat);
 
 function Summary() {
@@ -36,6 +36,8 @@ function Summary() {
                         validateStatus: () => true,
                     }
                 );
+                console.log(response.data);
+
                 if (response.status === 200) {
                     setSummary(response.data.Summary);
                 } else if (response.status === 401) {
@@ -187,6 +189,7 @@ function Summary() {
                         )}
                     </div>
                 </div>
+
                 {/* <div className="w-[10%]">
                     <Link
                         to={`/Summaries/${summary?.id}/Edit`}
@@ -195,7 +198,34 @@ function Summary() {
                         Edit Summary
                     </Link>
                 </div> */}
-                
+            </div>
+            <div className=" flex gap-6">
+                <div className=" w-fit mx-auto   ">
+                    <Link
+                        to={`/Summaries/${summary?.id}/Edit`}
+                        className=" flex items-center justify-center font-bold p-2 mt-6 bg-gray-500 text-white cursor-pointer  rounded-lg "
+                    >
+                        {/* <IoAdd className="  font-bold text-xl" /> */}
+                        Edit
+                    </Link>
+                </div>
+                <div className=" w-fit mx-auto   ">
+                    <div className=" flex items-center justify-center font-bold p-2 mt-6 bg-red-500 text-white cursor-pointer  rounded-lg ">
+                        {/* <IoAdd className="  font-bold text-xl" /> */}
+                        Delete
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-col w-full  gap-4">
+                {loading ? (
+                    <div>Loading...</div>
+                ) : summary?.file_link ? (
+                    <PDFReader
+                        fileUrl={`http://localhost:3000/${summary.file_link}`}
+                    />
+                ) : (
+                    <div className="text-gray-500">No file</div>
+                )}
             </div>
         </div>
     );
