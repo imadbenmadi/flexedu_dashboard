@@ -5,7 +5,6 @@ import axios from "axios";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
-import { SiFreelancer } from "react-icons/si";
 import { MdAttachMoney } from "react-icons/md";
 import { Link } from "react-router-dom";
 function Applications() {

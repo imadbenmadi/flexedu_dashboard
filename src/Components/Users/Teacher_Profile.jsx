@@ -16,86 +16,6 @@ import { FaAngleUp } from "react-icons/fa";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
-function Reviews({ user }) {
-    const [Loading, setLoading] = useState(false);
-    const [Feedbacks, setFeedbacks] = useState([]);
-    useEffect(() => {
-        setLoading(true);
-        const fetchData = async () => {
-            try {
-                let response;
-                if ((user.userType = "teacher"))
-                    response = await axios.get(
-                        `http://localhost:3000/Admin/Users/Teachers/${user?.id}/Feedbacks`,
-                        {
-                            withCredentials: true,
-                            // validateStatus: () => true,
-                        }
-                    );
-                else if ((user.userType = "Student"))
-                    response = await axios.get(
-                        `http://localhost:3000/Admin/Users/Student/${user?.id}/Feedbacks`,
-                        {
-                            withCredentials: true,
-                            // validateStatus: () => true,
-                        }
-                    );
-                else {
-                    setFeedbacks([]);
-                    return;
-                }
-
-                if (response.status == 200) {
-                    setFeedbacks(response.data.Feedbacks);
-                } else {
-                    setFeedbacks([]);
-                }
-            } catch (error) {
-                setFeedbacks([]);
-            }
-        };
-
-        // Promise.all([fetchData()]);
-        // Promise.all([fetchData()])
-        fetchData()
-            .then(() => {
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
-    }, []);
-    if (Loading)
-        return (
-            <div className=" w-full flex items-center justify-center pb-6">
-                <span className="small-loader    m-auto"></span>;
-            </div>
-        );
-    else
-        return (
-            <div>
-                {!Feedbacks || Feedbacks?.length == 0 ? (
-                    <div className=" text-center text-sm font-semibold text-gray_v pb-6">
-                        No feedbacks
-                    </div>
-                ) : (
-                    <div className=" max-w-[90%] mx-auto pb-12">
-                        {Feedbacks?.length > 0 &&
-                            Feedbacks.map((feedback) => {
-                                return (
-                                    <Feedback_Card
-                                        key={feedback?.id}
-                                        feedback={feedback}
-                                        Feedbacks={Feedbacks}
-                                        setFeedbacks={setFeedbacks}
-                                    />
-                                );
-                            })}
-                    </div>
-                )}
-            </div>
-        );
-}
 
 function PersonalInformations({ user }) {
     return (
@@ -197,31 +117,6 @@ function PersonalInformations({ user }) {
             ) : null}
 
             <div className=" w-full bg-gray_white h-[1px]"> </div>
-            {/* <div>
-                <div className="flex flex-col gap-4 w-full  ">
-                    <div className=" flex flex-row md:items-center gap-6 md:gap-10 shrink-0 text-2xl  font-semibold text-gray_v">
-                        <div className=" underline">Reviews : </div>
-                        <div className=" flex items-center justify-center gap-4 ">
-                            {user?.Rate ? (
-                                <>
-                                    <div className=" ">{user?.Rate}</div>
-                                    {/* <div className=" text-yellow-400 flex gap-1">
-                                        {[...Array(Math.floor(user?.Rate))].map(
-                                            (_, index) => (
-                                                <FaStar key={index} />
-                                            )
-                                        )}
-                                        {user?.Rate % 1 !== 0 && <FaStarHalf />}
-                                    </div> 
-                                    <FaStar className="text-yellow-400 " />
-                                </>
-                            ) : (
-                                <div className=" text-sm">No ratings yet</div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </div>
     );
 }
@@ -247,136 +142,12 @@ function Hero({ user }) {
                         className=" w-32 object-cover"
                     />
                 )}
-                <div className=" flex items-center justify-center flex-col mb-6">
-                    {/* <div className=" text-yellow-400 flex w-full text-xl gap-1">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                    </div> */}
-                    <div className=" flex  gap-4 w-full ">
-                        {user?.Rate ? (
-                            <>
-                                <div className=" text-yellow-400 flex gap-1">
-                                    {[...Array(Math.floor(user?.Rate))].map(
-                                        (_, index) => (
-                                            <FaStar key={index} />
-                                        )
-                                    )}
-                                    {user?.Rate % 1 !== 0 && <FaStarHalf />}
-                                </div>
-                            </>
-                        ) : null}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-function Feedback_Card({ feedback, Feedbacks, setFeedbacks }) {
-    const [deleteLoading, setDeleteLoading] = useState(false);
-    const [add_to_home_Loading, setadd_to_home_Loading] = useState(false);
-    const [show_more, setShow_more] = useState(false);
-    const Toogle_Show_More = () => {
-        setShow_more(!show_more);
-    };
-
-    return (
-        <div
-            key={feedback?.id}
-            className="flex flex-col md;flex-row justify-between py-4 px-7  border-2 
-                         border-green_v rounded-lg  mt-6 text-gray_v"
-        >
-            <div className="w-full md:w-full shrink-0">
-                <div className="flex gap-4 ">
-                    <div className="text-lg font-semibold">
-                        <img
-                            src={
-                                "http://localhost:3000" +
-                                feedback?.Student?.profile_pic_link
-                            }
-                            className=" w-20 h-20 rounded-full object-cover"
-                            alt=""
-                        />
-                        {}
-                    </div>
-                    <div className=" pt-4">
-                        <div className=" flex gap-1">
-                            <IoIosStar
-                                className={` cursor-pointer ${
-                                    feedback?.Rate >= 1
-                                        ? "text-yallow_v"
-                                        : "text-gray_white"
-                                }`}
-                            />
-                            <IoIosStar
-                                className={`  cursor-pointer ${
-                                    feedback?.Rate >= 2
-                                        ? "text-yallow_v"
-                                        : "text-gray_white"
-                                }`}
-                            />
-                            <IoIosStar
-                                className={`  cursor-pointer ${
-                                    feedback?.Rate >= 3
-                                        ? "text-yallow_v"
-                                        : "text-gray_white"
-                                }`}
-                            />
-                            <IoIosStar
-                                className={`  cursor-pointer ${
-                                    feedback?.Rate >= 4
-                                        ? "text-yallow_v"
-                                        : "text-gray_white"
-                                }`}
-                            />
-                            <IoIosStar
-                                className={`  cursor-pointer ${
-                                    feedback?.Rate == 5
-                                        ? "text-yallow_v"
-                                        : "text-gray_white"
-                                }`}
-                            />
-                        </div>
-                        <div className="text-sm pt-1  font-semibold">
-                            {feedback?.Student?.firstName}
-                        </div>
-                    </div>
-                </div>
-                <div className=" font-semibold text-gray_v py-6 md:px-4 break-all">
-                    {show_more ? (
-                        <div className=" flex flex-col ">
-                            {feedback?.Comment}
-                            <span
-                                onClick={Toogle_Show_More}
-                                className=" text-green_v cursor-pointer flex items-center gap-1  "
-                            >
-                                {" "}
-                                Show Less <FaAngleUp />
-                            </span>
-                        </div>
-                    ) : (
-                        <div className=" flex flex-col ">
-                            <div>{feedback?.Comment.slice(0, 500)}</div>
-                            {feedback?.Comment.length > 500 && (
-                                <div
-                                    onClick={Toogle_Show_More}
-                                    className=" text-green_v cursor-pointer flex items-center gap-1  "
-                                >
-                                    {" "}
-                                    Show More <FaAngleDown />
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
             </div>
         </div>
     );
 }
 
-function Client_Profile() {
+function Teacher_Profile() {
     const location = useLocation();
     const userId = location.pathname.split("/")[3];
     const navigate = useNavigate();
@@ -389,12 +160,14 @@ function Client_Profile() {
         const fetchUser = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/Admin/Users/Students/${userId}`,
+                    `http://localhost:3000/Admin/Users/Teachers/${userId}`,
                     {
                         withCredentials: true,
                         validateStatus: () => true,
                     }
                 );
+                console.log(response.data);
+
                 if (response.status === 200) {
                     setUser(response.data.user);
                 } else if (response.status === 401) {
@@ -435,9 +208,8 @@ function Client_Profile() {
                 <Hero user={user} />
                 {/* <Applications /> */}
                 <PersonalInformations user={user} />
-                <Reviews user={user} />
             </div>
         );
 }
 
-export default Client_Profile;
+export default Teacher_Profile;

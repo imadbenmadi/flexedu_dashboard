@@ -115,9 +115,9 @@ function Users() {
                                 <th className="px-4 py-2 border-l border-white">
                                     Email
                                 </th>
-                                <th className="px-4 py-2 border-l border-white">
+                                {/* <th className="px-4 py-2 border-l border-white">
                                     Telephone
-                                </th>
+                                </th> */}
                                 <th className="px-4 py-2 border-l border-white">
                                     User Type
                                 </th>
@@ -136,9 +136,9 @@ function Users() {
                                     <td className="border px-4 py-2">
                                         {user?.email}
                                     </td>
-                                    <td className="border px-4 py-2">
+                                    {/* <td className="border px-4 py-2">
                                         {user?.telephone}
-                                    </td>
+                                    </td> */}
                                     <td className="border px-4 py-2">
                                         {user?.userType === "teacher"
                                             ? "Teacher"

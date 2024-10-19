@@ -62,7 +62,7 @@ function PersonalInformations({ user }) {
 function Hero({ user }) {
     const Navigate = useNavigate();
     return (
-        <div className="flex flex-row  items-start justify-around  pb-10">
+        <div className="flex flex-row  items-start justify-around ">
             <div className="  flex  justify-center max-w-[350px] gap-6 md:gap-12">
                 {user?.profile_pic_link ? (
                     <img
@@ -82,7 +82,7 @@ function Hero({ user }) {
     );
 }
 
-function Freelancer_Profile() {
+function Student_Profile() {
     const location = useLocation();
     const userId = location.pathname.split("/")[3];
     const navigate = useNavigate();
@@ -96,11 +96,14 @@ function Freelancer_Profile() {
             try {
                 const response = await axios.get(
                     `http://localhost:3000/Admin/Users/Students/${userId}`,
+
                     {
                         withCredentials: true,
                         validateStatus: () => true,
                     }
                 );
+                console.log(response.data);
+
                 if (response.status === 200) {
                     setUser(response.data.user);
                 } else if (response.status === 401) {
@@ -147,4 +150,4 @@ function Freelancer_Profile() {
     }
 }
 
-export default Freelancer_Profile;
+export default Student_Profile;
