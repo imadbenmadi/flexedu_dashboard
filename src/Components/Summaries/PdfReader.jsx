@@ -51,7 +51,7 @@ const PDFReader = ({ fileUrl }) => {
                 </button>
             </div>
             <div ref={viewerRef} style={{ height: "750px" }}>
-                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                     <Viewer
                         fileUrl={fileUrl}
                         plugins={[defaultLayoutPluginInstance]}
