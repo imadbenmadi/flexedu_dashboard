@@ -48,7 +48,12 @@ function PersonalInformations({ user }) {
                     </div>
                     <div>
                         {user?.email ? (
-                            <a className=" hover:text-gray-500" href={`mailto:${user?.email}`}>{user?.email}</a>
+                            <a
+                                className=" hover:text-gray-500"
+                                href={`mailto:${user?.email}`}
+                            >
+                                {user?.email}
+                            </a>
                         ) : (
                             <div className="text-sm">none</div>
                         )}
@@ -135,6 +140,7 @@ function Student_Profile() {
 
         fetchUser();
     }, []);
+    const [deleteLoading, setDeleteLoading] = useState(false);
 
     if (loading) {
         return (
@@ -159,6 +165,75 @@ function Student_Profile() {
                 <Hero user={user} />
                 {/* <Applications /> */}
                 <PersonalInformations user={user} />
+                <div className=" my-6 w-fit mx-auto">
+                    {deleteLoading ? (
+                        <div className=" small-loader mt-2 mr-10"></div>
+                    ) : (
+                        <div
+                            className=" cursor-pointer text-white bg-red-500 px-4 py-2 rounded-lg font-semibold"
+                            onClick={() => {
+                                Swal.fire({
+                                    title: "Are you sure?",
+                                    text: "You won't be able to revert this!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Yes, delete it!",
+                                    cancelButtonText: "No, cancel!",
+                                    cancelButtonColor: "#3085d6",
+                                    confirmButtonColor: "#d33",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        setDeleteLoading(true);
+                                        axios
+                                            .delete(
+                                                `http://localhost:3000/Admin/Users/Students/${userId}`,
+                                                {
+                                                    withCredentials: true,
+                                                    validateStatus: () => true,
+                                                }
+                                            )
+                                            .then((response) => {
+                                                if (response.status === 200) {
+                                                    Swal.fire(
+                                                        "Deleted!",
+                                                        "The student has been deleted.",
+                                                        "success"
+                                                    );
+                                                    navigate("/Users");
+                                                } else if (
+                                                    response.status === 401
+                                                ) {
+                                                    Swal.fire(
+                                                        "Unauthorized",
+                                                        "Please You have to Login Again",
+                                                        "error"
+                                                    );
+                                                    navigate("/Login");
+                                                } else
+                                                    Swal.fire(
+                                                        "Error",
+                                                        "Somthing went wrong",
+                                                        "error"
+                                                    );
+                                            })
+                                            .catch((err) => {
+                                                Swal.fire(
+                                                    "Error",
+                                                    "Somthing went wrong",
+                                                    "error"
+                                                );
+                                            })
+                                            .finally(() => {
+                                                setDeleteLoading(false);
+                                            });
+                                    }
+                                });
+                            }}
+                        >
+                            Delete Profile
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }
