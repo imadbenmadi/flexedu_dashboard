@@ -55,7 +55,12 @@ function PersonalInformations({ user }) {
                     </div>
                     <div>
                         {user?.email ? (
-                            user?.email
+                            <a
+                                className=" hover:text-gray-500"
+                                href={`mailto:${user?.email}`}
+                            >
+                                {user?.email}
+                            </a>
                         ) : (
                             <div className="text-sm">none</div>
                         )}
