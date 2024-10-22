@@ -14,7 +14,7 @@ import CourseReviewCard from "./Review/Course_Review_Card";
 import { CiImageOn } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
-
+import MeetCard from "./MeetCard";
 function Course() {
     const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -278,6 +278,27 @@ function Course() {
                                         )}
                                     </div>
                                 </div>
+                            </div>
+                            <div className="my-4 w-full px-6 max-w-6xl mx-auto">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h3 className="text-2xl font-semibold text-gray-800">
+                                        Course Meets
+                                    </h3>
+                                </div>
+                                {Course?.Course_Meets &&
+                                Course?.Course_Meets.length > 0 ? (
+                                    Course?.Course_Meets.map((meet, index) => (
+                                        <MeetCard
+                                            key={index}
+                                            meet={meet}
+                                            index={index}
+                                        />
+                                    ))
+                                ) : (
+                                    <p className="text-center text-gray-500 py-8">
+                                        No Meetings available for this course.
+                                    </p>
+                                )}
                             </div>
                             <div className=" flex gap-3 items-center justify-center">
                                 <div className=" w-fit  ">
