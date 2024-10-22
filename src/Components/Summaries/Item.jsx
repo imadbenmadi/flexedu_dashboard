@@ -60,7 +60,6 @@ function Summary() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response.data);
 
                 if (response.status === 200) {
                     setSummary(response.data.Summary);

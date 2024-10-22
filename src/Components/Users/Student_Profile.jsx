@@ -33,8 +33,8 @@ function PersonalInformations({ user }) {
                         Last Name :
                     </div>
                     <div>
-                        {user?.LastName ? (
-                            user?.LastName
+                        {user?.lastName ? (
+                            user?.lastName
                         ) : (
                             <div className="text-sm">none</div>
                         )}
@@ -121,7 +121,6 @@ function Student_Profile() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response.data);
 
                 if (response.status === 200) {
                     setUser(response.data.user);

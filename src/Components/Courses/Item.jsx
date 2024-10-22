@@ -63,7 +63,6 @@ function Course() {
                         validateStatus: () => true,
                     }
                 );
-                console.log(response.data);
 
                 if (response.status == 200) {
                     const Course = response.data.Course;
