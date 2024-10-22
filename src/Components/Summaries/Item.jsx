@@ -270,7 +270,11 @@ function Summary() {
                 </h2>
 
                 {summary?.Review_Summaries?.map((review) => (
-                    <SummaryReviewCard key={review.id} review={review} />
+                    <SummaryReviewCard
+                        key={review.id}
+                        review={review}
+                        summaryId={summaryId}
+                    />
                 ))}
             </div>
         </div>

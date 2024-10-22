@@ -368,7 +368,11 @@ function Course() {
                     </h2>
 
                     {Course?.Reviews?.map((review) => (
-                        <CourseReviewCard key={review.id} review={review} />
+                        <CourseReviewCard
+                            key={review.id}
+                            review={review}
+                            courseId={CourseId}
+                        />
                     ))}
                 </div>
             </div>
