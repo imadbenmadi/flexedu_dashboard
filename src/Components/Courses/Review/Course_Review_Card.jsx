@@ -68,7 +68,6 @@ const CourseReviewCard = ({ review, courseId }) => {
                                                 validateStatus: () => true,
                                             }
                                         );
-                                        console.log(response);
 
                                         if (response.status === 200) {
                                             await Swal.fire(
@@ -93,7 +92,6 @@ const CourseReviewCard = ({ review, courseId }) => {
                                             );
                                         }
                                     } catch (err) {
-                                        console.log(err);
 
                                         await Swal.fire(
                                             "Error",
